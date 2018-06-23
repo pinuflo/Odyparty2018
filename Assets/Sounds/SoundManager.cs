@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SoundManager : MonoBehaviour {
 
-    public static grumbleAMP gAmp;
+    /**
 
     private static SoundManager instance;
     public static SoundManager Instance
@@ -63,6 +63,7 @@ public class SoundManager : MonoBehaviour {
         }
         
     }
+    **/
 
 
 }

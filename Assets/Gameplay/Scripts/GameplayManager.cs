@@ -30,7 +30,7 @@ public class GameplayManager : MonoBehaviour {
 
         try
         {
-            IntegrationManager.Instance.saveScoreEvent += saveScoreEvent;
+            
         }
         catch
         {
@@ -45,7 +45,7 @@ public class GameplayManager : MonoBehaviour {
     {
         try
         {
-            IntegrationManager.Instance.saveScoreEvent -= saveScoreEvent;
+           
         }
         catch
         {
@@ -67,14 +67,13 @@ public class GameplayManager : MonoBehaviour {
 
     void Start()
     {
-		IntegrationManager.Instance.facebookManager.LoadMyScore ();
+
         remainingSeconds = (float)gameDuration;
-		IntegrationManager.Instance.hideADS ();
-        
+	
         gStatus = GameStatus.none;
         nextStatus();
 
-        SoundManager.fadeToSong(1);
+        
 
     }
 
@@ -172,7 +171,7 @@ public class GameplayManager : MonoBehaviour {
 
             if(remainingSeconds == 20)
             {
-                SoundManager.fadeToSong(2);
+                //SoundManager.fadeToSong(2);
             }
 
         } while (remainingSeconds > 0);
@@ -185,9 +184,7 @@ public class GameplayManager : MonoBehaviour {
 
 	void gameEnd ()
 	{
-		if (IntegrationManager.Instance.EveryPlayStatus() == 0) {
-			IntegrationManager.Instance.StopRecord ();
-		}
+	
 	}
 
 
@@ -255,7 +252,7 @@ public class GameplayManager : MonoBehaviour {
 	IEnumerator mostrarPublicidadIenumerator()
 	{
 		yield return new WaitForSeconds (3.5F);
-		IntegrationManager.Instance.showADS ();
+		
 	}
 
     public void finish()
@@ -267,38 +264,6 @@ public class GameplayManager : MonoBehaviour {
         StartCoroutine(finishIenumerator());
 		StartCoroutine (mostrarPublicidadIenumerator ());
 	
-
-        if(IntegrationManager.isPlayerConnectedToGooglePlay == true)
-        {
-
-            IntegrationManager.Instance.SaveGooglePlayScore(score);
-            IntegrationManager.Instance.increaseGooglePlayGameCounter();
-            IntegrationManager.Instance.increaseBonusHitsCounter(maxComboHits);
-            IntegrationManager.Instance.increaseRankCounter(rank);
-
-        }
-		if (IntegrationManager.IsPlayerConenctedToFacebook == true) {
-
-			int LastScore = IntegrationManager.Instance.facebookManager.getUserScore();
-			if(LastScore<score)
-			{
-				IntegrationManager.Instance.SaveScoreFacebook(score);
-				//check if pass any friend
-				Debug.Log ("ME SUPERE CTMMM");
-			}
-			else
-			{
-				//your best score was LastScore
-				Debug.Log("SOY UN MALO QL");
-			}
-			//IntegrationManager.Instance.SaveScoreFacebook(score);
-
-		}
-
-		if (IntegrationManager.Instance.EveryPlayStatus() == 0) {
-			IntegrationManager.Instance.EveryPlayAddScore ("Score", score);
-		}
-
 		if (PlayerPrefs.GetInt ("score") < score) {
 			PlayerPrefs.SetInt ("Score", score);
 			PlayerPrefs.Save();
@@ -339,9 +304,7 @@ public class GameplayManager : MonoBehaviour {
 
     public void countdown()
     {
-		if (IntegrationManager.Instance.EveryPlayStatus() == 0) {
-			IntegrationManager.Instance.StartRecord ();
-		}
+
 
         StartCoroutine(countdownIenumerator());
     }
@@ -521,11 +484,11 @@ public class GameplayManager : MonoBehaviour {
 
 	public void replay()
 	{
-		IntegrationManager.Instance.LastRecordGame ();
+
 	}
 
 	public void share(){
-		IntegrationManager.Instance.ShareLinkScore(score);
+
 	}
 
 
