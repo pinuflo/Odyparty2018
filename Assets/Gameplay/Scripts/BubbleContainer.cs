@@ -170,7 +170,7 @@ public class BubbleContainer : MonoBehaviour {
     private void touchBomb()
     {
         selfExpire();
-		GameplayManager.instance.removeRemainingTime ();
+		//GameplayManager.instance.removeRemainingTime ();
     }
 
     void OnDisable()

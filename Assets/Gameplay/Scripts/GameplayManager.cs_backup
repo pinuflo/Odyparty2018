@@ -6,8 +6,13 @@ using System;
 public class GameplayManager : MonoBehaviour {
 
     public int round = 0, score = 0, rank = 0;
+
+
     public enum GameState { starting, paused, playing, ended };
     public GameState currentStatus = GameState.playing;
+
+
+
     public float remainingSeconds = 0;
     public Text scoreText, remainingTimeText;
     public int bonuses = 0, turn = 0;
@@ -27,7 +32,7 @@ public class GameplayManager : MonoBehaviour {
         else
             instance = this;
 
-
+ 
         try
         {
             
@@ -72,8 +77,6 @@ public class GameplayManager : MonoBehaviour {
 	
         gStatus = GameStatus.none;
         nextStatus();
-
-        
 
     }
 
@@ -310,11 +313,6 @@ public class GameplayManager : MonoBehaviour {
     }
 
 
-
-
-    
-
-
     void nextRound(int morph, int rank)
     {
         GameObject aux = null;
@@ -372,7 +370,6 @@ public class GameplayManager : MonoBehaviour {
 
 
     }
-
 
 
     void roundEnd(BubbleContainer bubbleContainer)

@@ -14,27 +14,31 @@ public class UI : MonoBehaviour {
 
     void Awake()
     {
+        /**
         GameplayManager.instance.timeUpdate += timeUpdate;
         GameplayManager.instance.bonusUpdate += bonusUpdate;
         GameplayManager.instance.updateScore += updateScore;
         GameplayManager.instance.gameChangeEvent += gameChangeEvent;
         GameplayManager.instance.countdownChange += countdownChangeEvent;
         GameplayManager.instance.finishGameEvent += finishGameEvent;
-}
+    **/
+    }
 
     private void finishGameEvent()
     {
+        /**
         GameObject obj = Instantiate(Resources.Load<GameObject>("UI/FinishText"), coundownPositionObject.transform.position, Quaternion.identity) as GameObject;
         obj.transform.parent = this.gameObject.transform;
         endGameEffect.SetActive(true);
         endGameMenu.SetActive(true);
 		bonusScoreEndText.text = (GameplayManager.instance.maxComboHits * 25).ToString ();
 		difficultyScore.text = (GameplayManager.instance.rank * 200).ToString();
+     **/
     }
 
     private void countdownChangeEvent(int counter)
     {
-
+        /**
         GameObject obj = Instantiate(Resources.Load<GameObject>("UI/CountdownNumber"), coundownPositionObject.transform.position, Quaternion.identity) as GameObject;
         obj.transform.parent = this.gameObject.transform;
 
@@ -42,8 +46,10 @@ public class UI : MonoBehaviour {
             obj.GetComponent<CountdownText>().setText(counter.ToString());
         else
             obj.GetComponent<CountdownText>().setText("GO!");
+        **/
     }
 
+    /**
     private void gameChangeEvent(GameplayManager.GameStatus newGameStatus)
     {
         switch(newGameStatus)
@@ -78,10 +84,6 @@ public class UI : MonoBehaviour {
         }
     }
 
-    void Start ()
-    {
-	
-	}
 
     void bonusUpdate(int bonus)
     {
@@ -98,6 +100,7 @@ public class UI : MonoBehaviour {
         GN2.SetNumber(aux1);
 
     }
+    **/
 
     void updateScore(int score)
     {
