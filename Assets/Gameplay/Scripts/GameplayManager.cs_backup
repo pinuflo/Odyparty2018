@@ -458,8 +458,6 @@ public class GameplayManager : MonoBehaviour {
         {
             Application.Quit();
         }
-
-
     }
 
     private void destroyCurrentContainer(GameObject obj)
