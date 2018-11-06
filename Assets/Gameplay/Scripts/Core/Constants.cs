@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameHero : MonoBehaviour {
-
-
-
+public static class Constants
+{
+    
 }
