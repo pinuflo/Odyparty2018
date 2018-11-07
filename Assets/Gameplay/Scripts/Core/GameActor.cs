@@ -4,18 +4,13 @@ using UnityEngine;
 
 public partial class GameActor : MonoBehaviour {
 
-    public float _maxHp, _currentHp;
-    public float _shield;
-    public ActorType _actorType;
+    private float _maxHp, _currentHp;
+    private float _shield;
+    protected ActorType _actorType;
 
-    void Awake()
+    public virtual void SetActorType()
     {
-        SetActorType();
-    }
-
-    public virtual SetActorType()
-    {
-        _actorType = ActorType.Undefined;
+        this._actorType = ActorType.Undefined;
     }
 
     public float CurrentHp
@@ -24,47 +19,68 @@ public partial class GameActor : MonoBehaviour {
         {
             return this._currentHp;
         }
-        set
+    }
+
+    public float MaxHp
+    {
+        get
         {
-            this._currentHp = value;
+            return this._maxHp;
         }
     }
 
-    public void DealDamage(float amount, GameActor target, DamageSourceType damageType, DamageSourceColor damageColor)
+    public ActorType Type
     {
-        if (onDamageDealt != null)
-            onDamageDealt(amount, target, damageType, damageColor);
-        target.TakeDamage( amount, this, damageType, damageColor);
+        get
+        {
+            return this._actorType;
+        }
     }
 
-    public void TakeDamage(float amount, GameActor source, DamageSourceType damageType, DamageSourceColor damageColor)
+    void Awake()
     {
-        if (CurrentHp - amount < 0)
+        SetActorType();
+    }
+
+    public void DealDamage(DamageActor damageActor)
+    {
+        if (onDamageDealt != null)
+            onDamageDealt(damageActor);
+        damageActor.Target.TakeDamage(damageActor);
+    }
+
+    public void TakeDamage(DamageActor damageActor)
+    {
+        if (CurrentHp - damageActor.DamageAmount < 0)
         {
             if (onOverkillDamageTaken != null)
-                onOverkillDamageTaken(amount- CurrentHp, source, damageType, damageColor);
-            CurrentHp = 0;
+                onOverkillDamageTaken(damageActor.DamageAmount - CurrentHp, damageActor);
+            this._currentHp = 0;
         }
         else
         {
-            CurrentHp = CurrentHp - amount;
+            this._currentHp = this._currentHp - damageActor.DamageAmount;
         }
 
         if (onDamageTaken != null)
-            onDamageTaken(amount, source, damageType, damageColor);
+            onDamageTaken(damageActor);
     }
 
-    public delegate void DamageDealtDelegate(float amount, GameActor target, DamageSourceType damageType, DamageSourceColor damageColor);
+    public delegate void DamageDealtDelegate(DamageActor damageActor);
     public DamageDealtDelegate onDamageDealt;
 
-    public delegate void DamageTakenDelegate(float amount, GameActor target, DamageSourceType damageType, DamageSourceColor damageColor);
+    public delegate void DamageTakenDelegate(DamageActor damageActor);
     public DamageTakenDelegate onDamageTaken;
 
-    public delegate void OverkillDamageDelegate(float overkillAmount, GameActor target, DamageSourceType damageType, DamageSourceColor damageColor);
+    public delegate void OverkillDamageDelegate(float overkillAmount, DamageActor damageActor);
     public OverkillDamageDelegate onOverkillDamageTaken;
 
 }
 
-public enum DamageSourceType { DirectDamage, IndirectDamage, Undefined };
-public enum DamageSourceColor { Red, Green, Blue, All, None };
+
 public enum ActorType { Player, Enemy, Boss, Undefined };
+
+
+//FLAGS
+public enum Actorinvulnerability { Vulnerable, Invulnerable };
+public enum ActorTargetability   { Targeteable, Untargetable };
