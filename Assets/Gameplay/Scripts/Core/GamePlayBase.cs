@@ -31,19 +31,39 @@ public class GamePlayBase : MonoBehaviour {
         NextStatus();
     }
 
-    virtual public void LoadStart()
+
+
+    ///<summary>
+    ///Triggers when the game status changes
+    ///</summary>
+    virtual protected void OnStateChange(GameState newGameStatus, GameState oldGameStatus)
     {
 
     }
 
-    virtual public void LoadFinish()
+    ///<summary>
+    ///Triggers when the loading phase starts
+    ///</summary>
+    virtual protected void OnLoadStart()
     {
 
     }
+
+    ///<summary>
+    ///Triggers when the loading phase finishes
+    ///</summary>
+    virtual protected void OnLoadFinish()
+    {
+
+    }
+
+
+
 
     virtual public void NextStatus()
     {
         GameState _old = GamePlayBase.CurrentStatus;
+        
         switch (CurrentStatus)
         {
             case GameState.Begin:
@@ -54,9 +74,9 @@ public class GamePlayBase : MonoBehaviour {
 
             case GameState.Loading:
                 {
-                    LoadStart();
+                    OnLoadStart();
                     CurrentStatus = GameState.Welcome;
-                    LoadFinish();
+                    OnLoadFinish();
                     break;
                 }
             case GameState.Welcome:
@@ -81,15 +101,15 @@ public class GamePlayBase : MonoBehaviour {
                 }
 
         }
-
-        if(gameChangeEvent!=null)
-            gameChangeEvent(CurrentStatus, _old);
+        OnStateChange(CurrentStatus, _old );
+        if (gameStateChangeEvent!=null)
+            gameStateChangeEvent(CurrentStatus, _old);
     }
 
 
 
     public delegate void GameChangeDelegate(GameState newGameStatus, GameState oldGameStatus);
-    public GameChangeDelegate gameChangeEvent;
+    public GameChangeDelegate gameStateChangeEvent;
 
 }
 

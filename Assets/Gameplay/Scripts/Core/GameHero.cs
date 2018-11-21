@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class GameHero : GameActor
 {
-    public override void SetActorType()
+    protected override void SetActorType()
     {
         _actorType = ActorType.Player;
-
-        DamageActor actor = new DamageActor();
-        
-
     }
 
 

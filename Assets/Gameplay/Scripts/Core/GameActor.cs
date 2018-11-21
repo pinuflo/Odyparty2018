@@ -7,11 +7,25 @@ public partial class GameActor : MonoBehaviour {
     private float _maxHp, _currentHp;
     private float _shield;
     protected ActorType _actorType;
+    protected GameActorFlags _actorFlags;
 
-    public virtual void SetActorType()
+
+    ///<summary>
+    ///Sets actor type on object awake
+    ///</summary>
+    protected virtual void SetActorType()
     {
         this._actorType = ActorType.Undefined;
     }
+
+    ///<summary>
+    ///Sets actor defaul values on object awake
+    ///</summary>
+    protected virtual void SetDefaults()
+    {
+        _actorFlags = new GameActorFlags();
+    }
+
 
     public float CurrentHp
     {
@@ -21,6 +35,7 @@ public partial class GameActor : MonoBehaviour {
         }
     }
 
+
     public float MaxHp
     {
         get
@@ -28,6 +43,7 @@ public partial class GameActor : MonoBehaviour {
             return this._maxHp;
         }
     }
+
 
     public ActorType Type
     {
@@ -40,7 +56,9 @@ public partial class GameActor : MonoBehaviour {
     void Awake()
     {
         SetActorType();
+        SetDefaults();
     }
+
 
     public void DealDamage(DamageActor damageActor)
     {
@@ -81,6 +99,4 @@ public partial class GameActor : MonoBehaviour {
 public enum ActorType { Player, Enemy, Boss, Undefined };
 
 
-//FLAGS
-public enum Actorinvulnerability { Vulnerable, Invulnerable };
-public enum ActorTargetability   { Targeteable, Untargetable };
+
